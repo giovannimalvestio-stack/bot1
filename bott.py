@@ -1,9 +1,8 @@
 
-
 import discord
 from discord.ext import commands
 import random
-
+import os
 
 
 
@@ -51,20 +50,39 @@ async def roll(ctx, dice: str):
     except Exception:
         await ctx.send('Format has to be in NdN!')
         return
+    result = ', '.join(str(random.randint(1, limit)) for r in range(rolls))
+    await ctx.send(result)   
+
 
 @bot.command()
 async def add(ctx, left: int, right: int):
     """Adds two numbers together."""
     await ctx.send(left + right)
 
-@bot.event
-async def on_ready():
-    # Tell the type checker that User is filled up at this point
-    assert bot.user is not None
 
-    print(f'Logged in as {bot.user} (ID: {bot.user.id})')
-    print('------')
 
+@bot.command()
+async def meme(ctx):
+    with open("meme1.png","rb") as f:
+        discord_file=discord.File(f)
+        await ctx.send(file=discord_file)
+
+@bot.command()
+async def c_meme(ctx):
+    listameme=os.listdir("meeme")
+    rmeme=random.choice(listameme)
+    with open(f"meeme/{rmeme}","rb") as f:
+        discord_file=discord.File(f)
+        await ctx.send(file=discord_file)
+
+
+
+
+
+
+
+
+bot.run("inserisci il tuo token")
 
 
 
