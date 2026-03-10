@@ -1,4 +1,5 @@
 
+
 import discord
 from discord.ext import commands
 import random
@@ -41,6 +42,32 @@ async def salve(ctx, nome = "pincopallino"):
 @bot.command()
 async def pin(ctx, noe = 10):
     await ctx.send(gen_pass(noe))
+
+@bot.command()
+async def roll(ctx, dice: str):
+    """Rolls a dice in NdN format."""
+    try:
+        rolls, limit = map(int, dice.split('d'))
+    except Exception:
+        await ctx.send('Format has to be in NdN!')
+        return
+
+@bot.command()
+async def add(ctx, left: int, right: int):
+    """Adds two numbers together."""
+    await ctx.send(left + right)
+
+@bot.event
+async def on_ready():
+    # Tell the type checker that User is filled up at this point
+    assert bot.user is not None
+
+    print(f'Logged in as {bot.user} (ID: {bot.user.id})')
+    print('------')
+
+
+
+
 
 
 bot.run("usa il tuo token")
